@@ -16,7 +16,7 @@ const CommentForm = ({ handleAddComment }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor='text-input'>Your comment:</label>
+      <label htmlFor='text-input'>How did it go?:</label>
       <textarea
         required
         type='text'
@@ -24,8 +24,11 @@ const CommentForm = ({ handleAddComment }) => {
         id='text-input'
         value={formData.text}
         onChange={handleChange}
+        placeholder="Describe your workout: weights, reps, sets..."
+        rows={6}   // height
+        cols={50}  // width
       />
-      <button type='submit'>SUBMIT COMMENT</button>
+      <button type='submit'>Submit</button>
     </form>
   );
 };

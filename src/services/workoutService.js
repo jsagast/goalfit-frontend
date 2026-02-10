@@ -55,43 +55,43 @@ const create = async (payload) => {
 // };
 
 
-// const deleteHoot = async (workoutId) => {
-//   try {
-//     const res = await fetch(`${BASE_URL}/${workoutId}`, {
-//       method: 'DELETE',
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem('token')}`,
-//       },
-//     });
-//     return res.json();
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const deleteWorkout = async (workoutId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${workoutId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// const updateHoot = async (workoutId, workoutFormData) => {
-//     try {
-//         const res = await fetch(`${BASE_URL}/${workoutId}`, {
-//             method: 'PUT',
-//             headers: {
-//                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(workoutFormData),
-//         });
-//         return res.json();
-//     } catch (err) {
-//         console.log(err)
-//     };
-// };
+const updateWorkout = async (workoutId, payload) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${workoutId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err)
+    };
+};
 
 export {
   index,
   show,
   create,
+  updateWorkout,
+  deleteWorkout
 //   createComment,
-//   deleteHoot,
-//   updateHoot
 };
 
 

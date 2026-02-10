@@ -9,7 +9,7 @@ import { UserContext } from './contexts/UserContext.jsx'
 
 import * as workoutService from './services/workoutService.js'
 
-import CreateWorkout from './components/CreateWorkout/CreateWorkout.jsx'
+import WorkoutForm from './components/WorkoutForm/WorkoutForm.jsx'
 // import WorkoutList from './components/WorkoutList/WorkoutList.jsx'
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails.jsx'
 // import WorkoutForm from './components/WorkoutForm/WorkoutForm.jsx'
@@ -37,7 +37,7 @@ const App = () => {
         const deletedWorkout = await workoutService.deleteWorkout(workoutId)
         const filteredWorkouts = workouts.filter((workout) => workout.id !== deletedWorkout.id)
         setWorkouts(filteredWorkouts)
-        navigate('/workouts')
+        navigate('/')
     }
 
     const handleUpdateWorkout = async (workoutId, workoutFormData) => {
@@ -58,12 +58,10 @@ const App = () => {
                 <Route path='/' element={user ? <Dashboard /> : <Landing />} />
                 {user ? (
                     <>
-                        <Route path='/workouts/new' element={<CreateWorkout handleAddWorkout={handleAddWorkout}/>}/>
-                         <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
-                        {/* <Route path='/workouts'element={<WorkoutList workouts={workouts} />}/>
+                        <Route path='/workouts/new' element={<WorkoutForm handleAddWorkout={handleAddWorkout}/>}/>
                         <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
-                        <Route path='/workouts/new'element={<WorkoutForm handleAddWorkout={handleAddWorkout} />}/>
-                        <Route path='/workouts/:workoutId/edit'element={<WorkoutForm handleUpdateWorkout={handleUpdateWorkout} />} /> */}
+                        <Route path='/workouts/:workoutId/edit'element={<WorkoutForm  handleUpdateWorkout={handleUpdateWorkout} />}/> 
+                        {/* /* <Route path='/workouts'element={<WorkoutList workouts={workouts} />}/> */}
                     </>
                 ) : (
                     <>

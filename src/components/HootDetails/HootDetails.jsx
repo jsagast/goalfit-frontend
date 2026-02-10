@@ -52,7 +52,7 @@ const HootDetails = ({ handleDeleteHoot }) => {
                 <p>{hoot.text}</p>
             </section>
             <section>
-                <h2>Comments</h2>
+                <h2>Log Your Effort</h2>
                 <CommentForm handleAddComment={handleAddComment} />
                 {!hoot.comments.length && <p>There are no comments.</p>}
 

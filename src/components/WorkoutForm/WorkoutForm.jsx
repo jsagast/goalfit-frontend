@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useParams } from "react-router";
 import { useNavigate } from 'react-router'
 import * as workoutService from '../../services/workoutService'
 import * as exerciseService from '../../services/exerciseService'
 
-const CreateWorkout = ({handleAddWorkout}) => {
+const WorkoutForm = ({handleAddWorkout, handleUpdateWorkout}) => {
   // const navigate = useNavigate()
 
+  const {workoutId}=useParams()
+  
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -25,6 +28,48 @@ const CreateWorkout = ({handleAddWorkout}) => {
     }
     fetchExercises()
   }, [])
+
+  // to edit
+
+useEffect(() => {
+    const fetchWorkout = async () => {
+      const workoutData = await workoutService.show(workoutId);
+
+      // Determine if it's a custom workout type
+      const isCustomType =
+        workoutData.workout_type &&
+        ![
+          "strength",
+          "hypertrophy",
+          "cardio",
+          "hiit",
+          "circuit",
+          "cross_training",
+          "powerlifting",
+          "olympic_lifting",
+          "functional",
+          "bodyweight",
+          "endurance",
+          "mobility",
+          "stretching",
+        ].includes(workoutData.workout_type);
+
+      setFormData({
+        name: workoutData.name || "",
+        description: workoutData.description || "",
+        workout_type: isCustomType ? "other" : workoutData.workout_type || "",
+        custom_workout_type: isCustomType ? workoutData.workout_type : "",
+        difficulty: workoutData.difficulty || "",
+        exercises: workoutData.exercises.map((ex) => ({
+          id: ex.id,
+          sets: ex.sets,
+          reps: ex.reps,
+        })),
+      });
+    };
+
+    if (workoutId) fetchWorkout();
+  }, [workoutId]);
 
 
   const handleChange = (e) => {
@@ -83,21 +128,21 @@ const CreateWorkout = ({handleAddWorkout}) => {
       }
 
       delete payload.custom_workout_type
-
-      handleAddWorkout(payload)
-      // navigate(`/workouts/${workout.id}`)
+      
+      if (workoutId){
+        handleUpdateWorkout(workoutId, payload)
+      } else {
+        handleAddWorkout(payload)
+      }
     } catch (err) {
-      setError('Failed to create workout')
+      setError(workout ? 'Failed to update workout' : 'Failed to create workout')
     }
   }
 
   return (
     <main>
-      <h1>Create Workout</h1>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {/* check if  I want it */}
-
+      <h1>Customize Your Workout</h1>
+      
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Workout Name</label>
@@ -224,12 +269,12 @@ const CreateWorkout = ({handleAddWorkout}) => {
 
         <br />
 
-        <button type="submit">Create Workout</button>
+        <button type="submit">{workoutId ? 'Update Workout' : 'Create Workout'}</button>
       </form>
     </main>
   )
 }
 
-export default CreateWorkout
+export default WorkoutForm
 
 

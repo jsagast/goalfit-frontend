@@ -67,7 +67,7 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
         </section>
 
         <section>
-            <h2>Comments</h2>
+            <h2>Track your Sessions</h2>
             <CommentForm handleAddComment={handleAddComment} />
             {!workout.comments.length && <p>There are no comments.</p>}
             {workout.comments.map((comment) => (

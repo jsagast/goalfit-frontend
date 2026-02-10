@@ -41,7 +41,7 @@ const Dashboard = () => {
                                 </p>
                             </header>
                             <p>Description: {workout.description}</p>
-                            <p>Type: {workout.workout_type} | Difficulty: {workout.difficulty}</p>
+                            <p>Type: {workout.workout_type.toUpperCase()} | Difficulty: {workout.difficulty[0].toUpperCase() + workout.difficulty.slice(1)}</p>
                         </article>
                     </Link>
                 ))
