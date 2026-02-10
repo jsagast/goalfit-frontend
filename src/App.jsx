@@ -7,47 +7,48 @@ import Landing from './components/Landing/Landing.jsx'
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 import { UserContext } from './contexts/UserContext.jsx'
 
-import * as hootService from './services/hootService.js'
+import * as workoutService from './services/workoutService.js'
 
-import HootList from './components/HootList/HootList.jsx'
-import HootDetails from './components/HootDetails/HootDetails.jsx'
-import HootForm from './components/HootForm/HootForm.jsx'
+import CreateWorkout from './components/CreateWorkout/CreateWorkout.jsx'
+// import WorkoutList from './components/WorkoutList/WorkoutList.jsx'
+// import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails.jsx'
+// import WorkoutForm from './components/WorkoutForm/WorkoutForm.jsx'
 
 const App = () => {
     const { user } = useContext(UserContext)
-    const [hoots, setHoots] = useState([])
+    const [workouts, setWorkouts] = useState([])
     const navigate = useNavigate()
-    console.log(hoots)
+
     useEffect(() => {
-        const fetchAllHoots = async () => {
-            const hootsData = await hootService.index()
-            setHoots(hootsData)
+        const fetchAllWorkouts = async () => {
+            const workoutsData = await workoutService.index()
+            setWorkouts(workoutsData)
         }
-        if (user) fetchAllHoots()
+        if (user) fetchAllWorkouts()
     }, [user])
 
-    const handleAddHoot = async (hootFormData) => {
-        const newHoot = await hootService.create(hootFormData)
-        setHoots([newHoot, ...hoots])
-        navigate('/hoots')
+    const handleAddWorkout = async (workoutFormData) => {
+        const newWorkout = await workoutService.create(workoutFormData)
+        setWorkouts([newWorkout, ...workouts])
+        navigate('/workouts')
     }
 
-    const handleDeleteHoot = async (hootId) => {
-        const deletedHoot = await hootService.deleteHoot(hootId)
-        const filteredHoots = hoots.filter((hoot) => hoot.id !== deletedHoot.id)
-        setHoots(filteredHoots)
-        navigate('/hoots')
+    const handleDeleteWorkout = async (workoutId) => {
+        const deletedWorkout = await workoutService.deleteWorkout(workoutId)
+        const filteredWorkouts = workouts.filter((workout) => workout.id !== deletedWorkout.id)
+        setWorkouts(filteredWorkouts)
+        navigate('/workouts')
     }
 
-    const handleUpdateHoot = async (hootId, hootFormData) => {
-        console.log(hootId, hootFormData)
-        const updatedHoot = await hootService.updateHoot(hootId, hootFormData)
-        setHoots(
-            hoots.map((hoot) =>
-                hoot.id === updatedHoot.id ? updatedHoot : hoot,
+    const handleUpdateWorkout = async (workoutId, workoutFormData) => {
+        console.log(workoutId, workoutFormData)
+        const updatedWorkout = await workoutService.updateWorkout(workoutId, workoutFormData)
+        setWorkouts(
+            workouts.map((workout) =>
+                workout.id === updatedWorkout.id ? updatedWorkout : workout,
             ),
         )
-        navigate(`/hoots/${hootId}`)
+        navigate(`/workouts/${workoutId}`)
     }
 
     return (
@@ -57,28 +58,11 @@ const App = () => {
                 <Route path='/' element={user ? <Dashboard /> : <Landing />} />
                 {user ? (
                     <>
-                        <Route
-                            path='/hoots'
-                            element={<HootList hoots={hoots} />}
-                        />
-                        <Route
-                            path='/hoots/:hootId'
-                            element={
-                                <HootDetails
-                                    handleDeleteHoot={handleDeleteHoot}
-                                />
-                            }
-                        />
-                        <Route
-                            path='/hoots/new'
-                            element={<HootForm handleAddHoot={handleAddHoot} />}
-                        />
-                        <Route
-                            path='/hoots/:hootId/edit'
-                            element={
-                                <HootForm handleUpdateHoot={handleUpdateHoot} />
-                            }
-                        />
+                        <Route path='/workouts/new' element={<CreateWorkout handleAddWorkout={handleAddWorkout}/>}/>
+                        {/* <Route path='/workouts'element={<WorkoutList workouts={workouts} />}/>
+                        <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
+                        <Route path='/workouts/new'element={<WorkoutForm handleAddWorkout={handleAddWorkout} />}/>
+                        <Route path='/workouts/:workoutId/edit'element={<WorkoutForm handleUpdateWorkout={handleUpdateWorkout} />} /> */}
                     </>
                 ) : (
                     <>

@@ -1,29 +1,54 @@
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../contexts/UserContext'
-import * as userService from '../../services/userService'
+import * as workoutService from '../../services/workoutService'
+
+import { Link } from 'react-router'
 
 const Dashboard = () => {
     const { user } = useContext(UserContext)
-    const [users, setUsers] = useState([])
+    const [workouts, setWorkouts] = useState([])
+
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchWorkouts = async () => {
             try {
-                const fetchedUsers = await userService.index()
-                setUsers(fetchedUsers)
+                const fetchedWorkouts = await workoutService.index(); //all
+                const userWorkouts = fetchedWorkouts.data.filter(
+                    (w) => w.workout_author_id === user.id
+                )
+                setWorkouts(userWorkouts)
             } catch (err) {
                 console.log(err)
             }
         }
-        if (user) fetchUsers()
+
+        if (user) fetchWorkouts()
     }, [user])
 
     return (
         <main>
             <h1>Welcome, {user.username}</h1>
-            {users.map((item) => (
-                <p key={item.id}>{item.username}</p>
-            ))}
+            {workouts.length === 0 ? (
+                <p>You haven’t created any workouts yet.</p>
+            ) : (
+                workouts.map((workout) => (
+                    <Link key={workout.id} to={`/workouts/${workout.id}`}>
+                        <article>
+                            <header>
+                                <h2>{workout.name}</h2>
+                                <p>
+                                    {`${workout.author_username} posted on 
+                                    ${new Date(workout.created_at || Date.now()).toLocaleDateString()}`}
+                                </p>
+                            </header>
+                            <p>{workout.description}</p>
+                            <p>Type: {workout.workout_type} | Difficulty: {workout.difficulty}</p>
+                        </article>
+                    </Link>
+                ))
+            )}
+            <Link to="/workouts/new">➕ Create New Workout</Link>
         </main>
     )
 }
+
 export default Dashboard

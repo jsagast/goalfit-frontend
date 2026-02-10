@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 
-import * as hootService from "../../services/hootService";
+import * as hootService from "../../services/workoutService";
 
 const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
   const { hootId } = useParams();
