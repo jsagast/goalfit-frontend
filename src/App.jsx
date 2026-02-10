@@ -27,8 +27,8 @@ const App = () => {
         if (user) fetchAllWorkouts()
     }, [user])
 
-    const handleAddWorkout = async (workoutFormData) => {
-        const newWorkout = await workoutService.create(workoutFormData)
+    const handleAddWorkout = async (payload) => {
+        const newWorkout = await workoutService.create(payload)
         setWorkouts([newWorkout, ...workouts])
         navigate('/workouts')
     }

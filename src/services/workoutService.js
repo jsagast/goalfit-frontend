@@ -22,21 +22,21 @@ const index = async () => {
 //     }
 // }
 
-// const create = async (workoutFormData) => {
-//     try {
-//         const res = await fetch(`${BASE_URL}`, {
-//             method: 'POST',
-//             headers: {
-//                 Authorization: `Bearer ${localStorage.getItem('token')}`,
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(workoutFormData)
-//         });
-//         return res.json();
-//     } catch (err) {
-//         console.log(err);
-//     }
-// };
+const create = async (workoutFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(workoutFormData)
+        });
+        return res.json();
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 // const createComment = async (workoutId, commentFormData) => {
 //   try {

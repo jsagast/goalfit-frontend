@@ -1,10 +1,16 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/exercises`;
 
-const index = async () => {
-  const res = await fetch(BASE_URL)
+const all = async () => {
+  try {
+  const res = await fetch(BASE_URL,{
+    headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}
+  })
   if (!res.ok) throw new Error('Failed to fetch exercises')
   return res.json()
-}
+  } catch (err){
+    console.log(err)
+  }
+};
 
 
 const show = async (exerciseId) => {
@@ -13,4 +19,4 @@ const show = async (exerciseId) => {
   return res.json()
 }
 
-export { index, show }
+export { all, show }

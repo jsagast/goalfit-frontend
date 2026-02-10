@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router'
 import * as workoutService from '../../services/workoutService'
 import * as exerciseService from '../../services/exerciseService'
 
-const CreateWorkout = () => {
-  const navigate = useNavigate()
+const CreateWorkout = ({handleAddWorkout}) => {
+  // const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     workout_type: '',
+    custom_workout_type: '',
     difficulty: '',
     exercises: [], //list
   })
@@ -19,14 +20,25 @@ const CreateWorkout = () => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const options = await exerciseService.index()
-      setExercises(options)
+      const data = await exerciseService.all()
+      setExercises(data)
     }
     fetchExercises()
   }, [])
 
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+
+    if (name === 'workout_type' && value !== 'other') {
+      setFormData({
+        ...formData,
+        workout_type: value,
+        custom_workout_type: '', //temporary to save option not saved in db
+      })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const handleExerciseChange = (index, field, value) => {
@@ -51,18 +63,29 @@ const CreateWorkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (formData.exercises.length === 0) {
+      setError('Add at least one exercise')
+      return
+    }
+
     try {
       const payload = {
         ...formData,
+         workout_type:
+          formData.workout_type === 'other'
+            ? formData.custom_workout_type
+            : formData.workout_type,
         exercises: formData.exercises.map((ex) => ({
-          id: Number(ex.id),
+          exercise_id: Number(ex.id),
           sets: Number(ex.sets),
           reps: Number(ex.reps),
         })),
       }
 
-      const workout = await workoutService.create(payload)
-      navigate(`/workouts/${workout.id}`)
+      delete payload.custom_workout_type
+
+      handleAddWorkout(payload)
+      // navigate(`/workouts/${workout.id}`)
     } catch (err) {
       setError('Failed to create workout')
     }
@@ -76,25 +99,36 @@ const CreateWorkout = () => {
       {/* check if  I want it */}
 
       <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Workout name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        <select
-          name="workout_type"
-          value={formData.workout_type}
-          onChange={handleChange}
-          required
-        >
+        <div>
+          <label htmlFor="name">Workout Name</label>
+          <input
+            name="name"
+            placeholder="e.g Leg Day"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <textarea
+            name="description"
+            placeholder="e.g Squats & Lunges"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="workout_type">Workout Type</label>
+          <select
+            id="workout_type"
+            name="workout_type"
+            value={formData.workout_type}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select workout type</option>
             <option value="strength">Strength</option>
             <option value="hypertrophy">Hypertrophy</option>
             <option value="cardio">Cardio</option>
@@ -109,27 +143,38 @@ const CreateWorkout = () => {
             <option value="mobility">Mobility</option>
             <option value="stretching">Stretching</option>
             <option value="other">Other</option>
-            </select>
-{/* 
-            {workout_type === 'other' && (
+          </select>
+        </div>
+        {formData.workout_type === 'other' && (
+          <div>
+            <label htmlFor="custom_workout_type">Custom Workout Type</label>
             <input
-                type="text"
-                placeholder="Enter custom workout type"
+              id="custom_workout_type"
+              name="custom_workout_type"
+              value={formData.custom_workout_type}
+              onChange={handleChange}
+              required
             />
-            )} */}
-        <select
-          name="difficulty"
-          value={formData.difficulty}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Difficulty</option>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
+          </div>
+        )}
+        <div>
+          <label htmlFor="difficulty">Difficulty</label>
+          <select
+            id="difficulty"
+            name="difficulty"
+            value={formData.difficulty}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select difficulty</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
 
         <hr/>
+
         <h2>Exercises</h2>
 
         {formData.exercises.map((exercise, index) => (
@@ -186,3 +231,5 @@ const CreateWorkout = () => {
 }
 
 export default CreateWorkout
+
+

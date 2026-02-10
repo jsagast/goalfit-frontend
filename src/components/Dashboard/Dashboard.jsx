@@ -12,7 +12,7 @@ const Dashboard = () => {
         const fetchWorkouts = async () => {
             try {
                 const fetchedWorkouts = await workoutService.index(); //all
-                const userWorkouts = fetchedWorkouts.data.filter(
+                const userWorkouts = fetchedWorkouts.filter(
                     (w) => w.workout_author_id === user.id
                 )
                 setWorkouts(userWorkouts)
