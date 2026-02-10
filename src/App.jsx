@@ -11,7 +11,7 @@ import * as workoutService from './services/workoutService.js'
 
 import CreateWorkout from './components/CreateWorkout/CreateWorkout.jsx'
 // import WorkoutList from './components/WorkoutList/WorkoutList.jsx'
-// import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails.jsx'
+import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails.jsx'
 // import WorkoutForm from './components/WorkoutForm/WorkoutForm.jsx'
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
     const handleAddWorkout = async (payload) => {
         const newWorkout = await workoutService.create(payload)
         setWorkouts([newWorkout, ...workouts])
-        navigate('/workouts')
+        navigate('/')
     }
 
     const handleDeleteWorkout = async (workoutId) => {
@@ -59,6 +59,7 @@ const App = () => {
                 {user ? (
                     <>
                         <Route path='/workouts/new' element={<CreateWorkout handleAddWorkout={handleAddWorkout}/>}/>
+                         <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
                         {/* <Route path='/workouts'element={<WorkoutList workouts={workouts} />}/>
                         <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
                         <Route path='/workouts/new'element={<WorkoutForm handleAddWorkout={handleAddWorkout} />}/>

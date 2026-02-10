@@ -36,11 +36,11 @@ const Dashboard = () => {
                             <header>
                                 <h2>{workout.name}</h2>
                                 <p>
-                                    {`${workout.author_username} posted on 
+                                    {`Created on 
                                     ${new Date(workout.created_at || Date.now()).toLocaleDateString()}`}
                                 </p>
                             </header>
-                            <p>{workout.description}</p>
+                            <p>Description: {workout.description}</p>
                             <p>Type: {workout.workout_type} | Difficulty: {workout.difficulty}</p>
                         </article>
                     </Link>
