@@ -38,23 +38,6 @@ const create = async (payload) => {
     }
 };
 
-// const createComment = async (workoutId, commentFormData) => {
-//   try {
-//     const res = await fetch(`${BASE_URL}/${workoutId}/comments`, {
-//       method: 'POST',
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem('token')}`,
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(commentFormData),
-//     });
-//     return res.json();
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-
 const deleteWorkout = async (workoutId) => {
   try {
     const res = await fetch(`${BASE_URL}/${workoutId}`, {
@@ -85,13 +68,30 @@ const updateWorkout = async (workoutId, payload) => {
     };
 };
 
+const createComment = async (workoutId, commentFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${workoutId}/comments`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(commentFormData),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 export {
   index,
   show,
   create,
   updateWorkout,
-  deleteWorkout
-//   createComment,
+  deleteWorkout,
+  createComment,
 };
 
 
