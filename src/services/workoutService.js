@@ -84,6 +84,38 @@ const createComment = async (workoutId, commentFormData) => {
   }
 };
 
+const updateComment = async (workoutId, commentId, text)=> {
+  try {
+    const res = await fetch(`${BASE_URL}/${workoutId}/comments/${commentId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({text}),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteComment = async (workoutId, commentId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${workoutId}/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
 
 export {
   index,
@@ -92,6 +124,9 @@ export {
   updateWorkout,
   deleteWorkout,
   createComment,
+  updateComment,
+  deleteComment
 };
+
 
 

@@ -10,6 +10,7 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
     const { workoutId } = useParams()
     const [workout, setWorkout] = useState(null)
     const { user } = useContext(UserContext)
+    const [editingComment, setEditingComment] = useState(null)
 
     useEffect(() => {
         const fetchWorkout = async () => {
@@ -27,6 +28,49 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
         setWorkout({ ...workout, comments: [newComment, ...workout.comments] })
         console.log('commentFormData -->', commentFormData)
     }
+
+    const handleDeleteComment = async (commentId) => {
+        if (!window.confirm('Delete this comment?')) return
+
+        await workoutService.deleteComment(workoutId, commentId)
+
+        setWorkout({
+            ...workout,
+            comments: workout.comments.filter(
+            (comment) => comment.comment_id !== commentId
+            ),
+        })
+
+        if (editingComment?.comment_id === commentId) {
+            setEditingComment(null)
+        }
+    }
+
+    const handleUpdateComment = async (updatedCommentForm) => {
+        const { comment_id, comment_text } = updatedCommentForm
+
+        const updated = await workoutService.updateComment(
+            workoutId,
+            comment_id,
+            comment_text
+        )
+
+        const safeUpdated = {
+            ...updated,
+            comment_id,
+            comment_text: updated?.comment_text || comment_text,
+        }
+
+        setWorkout({
+            ...workout,
+            comments: workout.comments.map((c) =>
+            c.comment_id === comment_id ? safeUpdated : c
+            ),
+        })
+
+        setEditingComment(null)
+    }
+
 
     if (!workout) return <main>Loading...</main>
     console.log(workout)
@@ -68,18 +112,36 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
 
         <section>
             <h2>Track your Sessions</h2>
-            <CommentForm handleAddComment={handleAddComment} />
+            <CommentForm 
+                handleAddComment={handleAddComment} 
+                editingComment={editingComment}
+                setEditingComment={setEditingComment}
+                handleUpdateComment={handleUpdateComment}
+            />
             {!workout.comments.length && <p>There are no comments.</p>}
-            {workout.comments.map((comment) => (
-            <article key={comment.comment_id}>
-                <header>
-                <p>{`${comment.comment_author_username} posted on ${
-                    comment.created_at ? new Date(comment.created_at).toLocaleDateString() : "Unknown date"
-                }`}</p>
-                </header>
-                <p>{comment.comment_text}</p>
-            </article>
-            ))}
+
+            {workout.comments.map((comment) => {
+                const isYou = user?.username === comment.comment_author_username
+                const who = isYou? "You": comment.comment_author_username || "Unknown"
+                const when = comment.comment_created_at ? new Date(comment.comment_created_at).toLocaleDateString(): "Unknown date"
+
+                return (
+                    <article key={comment.comment_id}>
+                        <header>
+                            <p>{`${who} posted on ${when}`}</p>
+                        </header>
+
+                        <p>{comment.comment_text}</p>
+
+                        {isYou && (
+                            <div>
+                                <button onClick={() => setEditingComment(comment)}> Edit</button>
+                                <button onClick={() =>handleDeleteComment(comment.comment_id)}>Delete</button>
+                            </div>
+                        )}
+                    </article>
+                )
+            })}
         </section>
         </main>
     )
