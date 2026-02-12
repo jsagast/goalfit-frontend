@@ -1,0 +1,136 @@
+.mainContainer{
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 80px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-image:url('../../assets/images/detail.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.header {
+  max-width: 800px;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  gap: 10px
+}
+
+.header h1 {
+    font-family: 'Freckle Face', cursive;
+    font-size: 60px;
+    margin-bottom: 5px;
+    color: #4c1d95;
+}
+
+.header p {
+    font-size: 16px;
+    margin: 4px;
+    color: black;
+    /* font-weight: 100; */
+}
+
+h2 {
+  font-size: 28px;
+  margin: 10px 0 15px;
+  color: #4c1d95;
+}
+
+.exercisesList {
+  list-style-type: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.exercisesList li {
+  background-color: #fff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: left;
+  font-size: 15px;
+}
+
+/* Buttons */
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.button {
+  padding: 12px 25px;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  border: none;
+  color: white;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  box-shadow: 0 6px 15px rgba(151, 24, 151, 0.4);
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(151, 24, 151, 0.5);
+}
+
+.commentSection {
+  max-width: 700px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.commentArticle {
+  background-color: #fff;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-top: 10px;
+}
+
+.commentHeader {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #6b21a8;
+}
+
+.commentButtons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.commentButtons button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  color: white;
+}
+
+.commentButtons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(151,24,151,0.4);
+}
+

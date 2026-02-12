@@ -27,7 +27,7 @@ const Dashboard = () => {
 
     return (
         <main className={styles.container}>
-            <h1 className={styles.title}>Welcome, {user.username}</h1>
+            <h1 className={styles.title}>Welcome, {user.username}. <br/>Here are your workouts</h1>
             {workouts.length === 0 ? (
                 <p className={styles.empty}>You haven’t created any workouts yet.</p>
             ) : (
@@ -50,7 +50,6 @@ const Dashboard = () => {
                                         workout.difficulty.slice(1)}
                                     </span>
                                 </div>
-                                {/* <p>Type: {workout.workout_type.toUpperCase()} | Difficulty: {workout.difficulty[0].toUpperCase() + workout.difficulty.slice(1)}</p> */}
                             </article>
                         </Link>
                     ))}

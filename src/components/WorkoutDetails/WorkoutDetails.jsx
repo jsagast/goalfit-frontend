@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router'
 import { useState, useEffect, useContext } from 'react'
-
 import * as workoutService from '../../services/workoutService'
 import { UserContext } from '../../contexts/UserContext'
 
 import CommentForm from '../CommentForm/CommentForm'
+import styles from './WorkoutDetails.module.css'
 
 const WorkoutDetails = ({ handleDeleteWorkout }) => {
     const { workoutId } = useParams()
@@ -76,47 +76,47 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
     console.log(workout)
 
     return (
-        <main>
-        <section>
-            <header>
-                <h1>{workout.name}</h1>
-                <p>Type: {workout.workout_type.toUpperCase()}</p>
-                <p>
-                    {`Created on ${
-                    workout.created_at ? new Date(workout.created_at).toLocaleDateString() : "Unknown date"
-                    }`}
-                </p>
-                <p>Description: {workout.description}</p>
-                {workout.workout_author_id === user.id && (
-                    <>
-                    <Link to={`/workouts/${workoutId}/edit`}>Edit</Link>
-                    <button onClick={() => handleDeleteWorkout(workoutId)}>Delete</button>
-                    </>
-                )}
-                <p>
-                    {`Workout Date: ${
-                        workout.workout_date
-                        ? new Date(workout.workout_date).toLocaleDateString()
-                        : "Unknown"
-                    }`}
-                </p>
-            </header>
+        <main className={styles.mainContainer}>
+
+        <section className={styles.header}>
+            <h1>{workout.name}</h1>
+            <p>Type: {workout.workout_type.toUpperCase()}</p>
+            <p>
+                {`Created on ${
+                workout.created_at ? new Date(workout.created_at).toLocaleDateString() : "Unknown date"
+                }`}
+            </p>
+            <p>Description: {workout.description}</p>
+            <p>
+                {`Workout Date: ${
+                    workout.workout_date
+                    ? new Date(workout.workout_date).toLocaleDateString()
+                    : "Unknown"
+                }`}
+            </p>
 
             <h2>Exercises</h2>
             {workout.exercises.length ? (
-            <ul>
+            <ul className={styles.exercisesList}>
                 {workout.exercises.map((ex) => (
                 <li key={ex.id}>
-                    {ex.name} - {ex.sets} sets x {ex.reps} reps <br/> Muscle Group: {ex.muscle_group}, Equipment: {ex.equipment}
+                    {ex.name} - {ex.sets} sets x {ex.reps} reps <br/> Muscle Group: {ex.muscle_group} | Equipment: {ex.equipment}
                 </li>
                 ))}
             </ul>
             ) : (
             <p>No exercises added</p>
             )}
+
+            {workout.workout_author_id === user.id && (
+                <div className={styles.buttonGroup}>
+                    <Link className={styles.button} to={`/workouts/${workoutId}/edit`}>Edit</Link>
+                    <button className={styles.button} onClick={() => handleDeleteWorkout(workoutId)}>Delete</button>
+                </div>
+            )}
         </section>
 
-        <section>
+        <section className={styles.header} >
             <h2>Track your Sessions</h2>
             <CommentForm 
                 handleAddComment={handleAddComment} 
@@ -132,15 +132,15 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
                 const when = comment.comment_created_at ? new Date(comment.comment_created_at).toLocaleDateString(): "Unknown date"
 
                 return (
-                    <article key={comment.comment_id}>
-                        <header>
+                    <article key={comment.comment_id} className={styles.commentArticle}>
+                        <header  className={styles.commentHeader}>
                             <p>{`${who} posted on ${when}`}</p>
                         </header>
 
                         <p>{comment.comment_text}</p>
 
                         {isYou && (
-                            <div>
+                            <div className={styles.commentButtons}>
                                 <button onClick={() => setEditingComment(comment)}> Edit</button>
                                 <button onClick={() =>handleDeleteComment(comment.comment_id)}>Delete</button>
                             </div>
