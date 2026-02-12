@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router'
 import { signUp } from '../../services/authService'
 import { UserContext } from '../../contexts/UserContext'
 
+import styles from './SignUpForm.module.css'
+
+
 const SignUpForm = () => {
     const navigate = useNavigate()
     const { setUser } = useContext(UserContext)
@@ -36,7 +39,7 @@ const SignUpForm = () => {
     }
 
     return (
-        <main>
+        <main className={styles.container}>
             <h1>Sign Up</h1>
             <p>{message}</p>
             <form onSubmit={handleSubmit}>
@@ -73,9 +76,9 @@ const SignUpForm = () => {
                         required
                     />
                 </div>
-                <div>
-                    <button disabled={isFormInvalid()}>Sign Up</button>
-                    <button onClick={() => navigate('/')}>Cancel</button>
+                <div className={styles.actions}>
+                    <button disabled={isFormInvalid()} className={styles.submit}>Sign Up</button>
+                    <button onClick={() => navigate('/')} className={styles.cancel}>Cancel</button>
                 </div>
             </form>
         </main>

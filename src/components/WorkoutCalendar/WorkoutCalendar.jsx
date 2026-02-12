@@ -4,6 +4,8 @@ import enUS from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useState } from 'react';
 
+import styles from './WorkoutCalendar.module.css'
+
 const locales = { 'en-US': enUS };
 
 const localizer = dateFnsLocalizer({
@@ -26,70 +28,36 @@ const WorkoutCalendar = ({ workouts }) => {
     difficulty: w.difficulty
   }));
 
+
   const eventStyleGetter = (event) => {
     let backgroundColor = 'lightblue';
-    if (event.difficulty === 'Hard') backgroundColor = 'red';
-    else if (event.difficulty === 'Medium') backgroundColor = 'orange';
-    else if (event.difficulty === 'Easy') backgroundColor = 'green';
+    if (event.difficulty === 'advanced') backgroundColor = 'red';
+    else if (event.difficulty === 'intermediate') backgroundColor = 'orange';
+    else if (event.difficulty === 'beginner') backgroundColor = 'green';
 
-    return { style: { backgroundColor, color: 'white', borderRadius: '5px', padding: '2px' } };
+    return {
+      className: styles.event,
+      style: { backgroundColor },
+    };
   };
 
   return (
-    <div style={{ height: 600 }}>
+    <div className={styles.calendarContainer}>
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
         eventPropGetter={eventStyleGetter}
-        // views={['month', 'week', 'day']}
         views={['month']}
         defaultView="month"
-        date={date}               // 👈 controlled date
-        onNavigate={newDate => setDate(newDate)}  // 👈 update on nav
+        date={date}              
+        onNavigate={newDate => setDate(newDate)}  
+        dayPropGetter={() => ({ className: styles.dayCell })}
       />
     </div>
   );
 };
-
-// const WorkoutCalendar = ({ workouts }) => {
-//   // Map workouts to calendar events using workout_date
-//   const events = workouts.map(w => ({
-//     title: w.name,
-//     start: new Date(w.workout_date),
-//     end: new Date(w.workout_date),
-//     allDay: true,
-//     id: w.id,
-//     difficulty: w.difficulty
-//   }));
-
-//   console.log(events)
-  
-
-//   const eventStyleGetter = (event) => {
-//     let backgroundColor = 'lightblue';
-//     if (event.difficulty === 'Hard') backgroundColor = 'red';
-//     else if (event.difficulty === 'Medium') backgroundColor = 'orange';
-//     else if (event.difficulty === 'Easy') backgroundColor = 'green';
-
-//     return { style: { backgroundColor, color: 'white', borderRadius: '5px', padding: '2px' } };
-//   };
-
-//   return (
-//     <div style={{ height: 600 }}>
-//       <Calendar
-//         localizer={localizer}
-//         events={events}
-//         startAccessor="start"
-//         endAccessor="end"
-//         eventPropGetter={eventStyleGetter}
-//         views={['month', 'week', 'day']}
-//         defaultView="month"
-//       />
-//     </div>
-//   );
-// };
 
 export default WorkoutCalendar;
 

@@ -1,0 +1,53 @@
+
+.calendarContainer {
+  height: 650px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+}
+
+.event {
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.dayCell {
+  border-radius: 8px;
+  margin: 2px;
+  padding: 2px;
+  min-height: 60px;
+}
+
+/* WorkoutCalendar.module.css */
+
+:global(.rbc-toolbar) {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+:global(.rbc-toolbar-left) {
+  text-align: left;
+}
+
+:global(.rbc-toolbar-center) {
+  text-align: center;
+}
+
+:global(.rbc-toolbar-right) {
+  text-align: right;
+}

@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&family=Rubik+Storm&display=swap');
+
+.container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+    background-image:url('../../assets/images/createf.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container h1 {
+    font-family: "Freckle Face", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+    margin-bottom: 10px;
+    color: white
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+/* Form */
+form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px 25px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #4c1d95;
+}
+
+input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-color: #971897;
+  box-shadow: 0 0 8px rgba(151, 24, 151, 0.3);
+}
+
+/* Buttons container */
+.actions {
+  display: flex;
+  gap: 10px;          
+  margin-top: 10px;
+}
+.submit,
+.cancel {
+    flex:1;
+    min-width: 0;
+    padding: 12px 10px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    color: white;
+    border: none;
+    box-shadow: 0 6px 15px rgba(151, 24, 151, 0.4);
+}
+
+
+.submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(151, 24, 151, 0.5);
+}
+
+
+.cancel:hover {
+  background-color: #971897;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(151, 24, 151, 0.4);
+}

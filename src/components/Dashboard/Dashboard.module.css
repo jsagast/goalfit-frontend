@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&family=Rubik+Storm&display=swap');
+
 .container {
   min-height: 100vh;
   width: 100%;
@@ -20,7 +22,10 @@
 }
 
 .title {
-  font-size: 32px;
+  font-family: "Freckle Face", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
   font-weight: 700;
   margin-bottom: 30px;
   color: rgba(68, 13, 156, 0.88);
@@ -93,7 +98,7 @@
     width: 20%;
     padding: 14px 10px;                  
     color: white;                        
-    background-color: #6a0dad;           
+     background: linear-gradient(90deg, #8b5cf6, #ec4899);          
     border: none;
     border-radius: 8px;
     font-weight: 600;

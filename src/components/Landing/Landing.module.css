@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Freckle+Face&family=Rubik+Storm&display=swap');
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url('../../assets/images/primary.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container h1 {
+    font-family: "Freckle Face", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #971897, #1512b3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container p {
+  font-size: 18px;
+  opacity: 0.9;
+}
