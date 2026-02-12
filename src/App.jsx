@@ -54,7 +54,7 @@ const App = () => {
         <>
             <NavBar />
             <Routes>
-                <Route path='/' element={user ? <Dashboard /> : <Landing />} />
+                <Route path='/' element={user ? <Dashboard handleDeleteWorkout={handleDeleteWorkout}/> : <Landing />} />
                 {user ? (
                     <>
                         <Route path='/workouts/new' element={<WorkoutForm handleAddWorkout={handleAddWorkout}/>}/>

@@ -5,7 +5,7 @@ import styles from './Dashboard.module.css'
 
 import { Link } from 'react-router'
 
-const Dashboard = () => {
+const Dashboard = ({handleDeleteWorkout}) => {
     const { user } = useContext(UserContext)
     const [workouts, setWorkouts] = useState([])
 
@@ -25,6 +25,21 @@ const Dashboard = () => {
         if (user) fetchWorkouts()
     }, [user])
 
+    const handleDeleteClick = async (e, workoutId) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const confirmDelete = window.confirm('Delete this workout?');
+    if (!confirmDelete) return;
+
+    await handleDeleteWorkout(workoutId);
+
+    setWorkouts(prev =>
+        prev.filter(w => w.id !== workoutId)
+    );
+    };
+
+
     return (
         <main className={styles.container}>
             <h1 className={styles.title}>Welcome, {user.username}. <br/>Here are your workouts</h1>
@@ -35,6 +50,10 @@ const Dashboard = () => {
                     {workouts.map((workout) => (
                         <Link key={workout.id} to={`/workouts/${workout.id}`}>
                             <article className={styles.card}>
+
+                                <button onClick={(e)=> handleDeleteClick(e,workout.id)} className={styles.deleteButton}>X</button>
+                        
+
                                 <header className={styles.cardHeader}>
                                     <h2>{workout.name}</h2>
                                     <p className={styles.date}>

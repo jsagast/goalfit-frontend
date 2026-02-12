@@ -6,7 +6,6 @@ import * as exerciseService from '../../services/exerciseService'
 import styles from './WorkoutForm.module.css'
 
 const WorkoutForm = ({handleAddWorkout, handleUpdateWorkout}) => {
-  // const navigate = useNavigate()
 
   const {workoutId}=useParams()
   
@@ -69,6 +68,7 @@ useEffect(() => {
         })),
         workout_date: workoutData.workout_date || new Date().toISOString().slice(0, 10),
       });
+
     };
 
     if (workoutId) fetchWorkout();
@@ -232,7 +232,12 @@ useEffect(() => {
               type="date"
               id="workout_date"
               name="workout_date"
-              value={formData.workout_date}
+              value={
+              formData.workout_date
+                ? new Date(formData.workout_date).toISOString().split("T")[0]
+                : ""
+              }
+              // value={formData.workout_date.toISOString().split("T")[0]}
               onChange={handleChange}
               required
             />
