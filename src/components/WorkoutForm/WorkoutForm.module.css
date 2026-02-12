@@ -1,0 +1,122 @@
+.container{
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 80px 40px;
+    background-image:url('../../assets/images/createf.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column; /* stack children vertically */
+    align-items: center;    /* center all children horizontally */
+    text-align: center;   
+}
+
+h1, h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+h2 {
+    margin-top: 25px;
+    font-size: 22px;
+}
+
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #7b2ff7;
+    box-shadow: 0 0 5px rgba(123, 47, 247, 0.5);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+hr {
+    margin: 25px 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.exerciseRow {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.exerciseRow select,
+.exerciseRow input {
+    flex: 1 1 10px;
+}
+
+button {
+    background: linear-gradient(90deg, #7b2ff7, #f107a3);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+button.removeBtn {
+    background: #da080c;
+    padding: 8px 12px;
+}
+
+button.removeBtn:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+}
+
+.submitBtn {
+    margin-top: 20px;
+    width: 100%;
+}

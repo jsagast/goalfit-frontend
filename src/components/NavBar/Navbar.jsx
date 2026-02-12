@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { Link } from 'react-router'
 import { UserContext } from '../../contexts/UserContext'
+import styles from './NavBar.module.css'
+
 const NavBar = () => {
     const { user } = useContext(UserContext)
     const handleSignOut = () => {
@@ -8,21 +10,24 @@ const NavBar = () => {
         setUser(null)
     }
     return (
-        <nav>
+        <nav className={styles.navbar}>
             {user ? (
-                <ul>
+                <ul className={styles.navList}>
                     <li>
                         <Link to='/'>My Dashboard</Link>
                     </li>
                     <li>
-                        <Link to='/workouts/new'>Add a New Workout</Link>
+                        <Link to='/workouts/new'>New Workout</Link>
                     </li>
                     <li>
+                        <Link to='/workouts/calendar'>My Calendar</Link>
+                    </li>
+                    <li className={styles.signOut}>
                         <Link to='/' onClick={handleSignOut}>Sign Out</Link>
                     </li>
                 </ul>
             ) : (
-                <ul>
+                <ul className={styles.navList}>
                     <li>
                         <Link to='/'>Home</Link>
                     </li>

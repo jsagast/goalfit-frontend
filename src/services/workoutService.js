@@ -114,7 +114,25 @@ const deleteComment = async (workoutId, commentId) => {
   }
 };
 
-
+const getCalendarWorkouts = async () => {
+  try {
+    const res = await fetch(BASE_URL, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const data = await res.json();
+    // Map to only the fields needed for the calendar
+    return data.map((w) => ({
+      id: w.id,
+      name: w.name,
+      workout_date: w.workout_date || w.created_at,
+      difficulty: w.difficulty,
+    }));
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 
 export {
@@ -125,7 +143,8 @@ export {
   deleteWorkout,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getCalendarWorkouts
 };
 
 

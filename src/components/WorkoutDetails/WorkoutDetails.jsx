@@ -79,22 +79,28 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
         <main>
         <section>
             <header>
-            <h1>{workout.name}</h1>
-            <p>Type: {workout.workout_type.toUpperCase()}</p>
-            <p>
-                {`Created on ${
-                workout.created_at ? new Date(workout.created_at).toLocaleDateString() : "Unknown date"
-                }`}
-            </p>
-            <p>Description: {workout.description}</p>
-            {workout.workout_author_id === user.id && (
-                <>
-                <Link to={`/workouts/${workoutId}/edit`}>Edit</Link>
-                <button onClick={() => handleDeleteWorkout(workoutId)}>Delete</button>
-                </>
-            )}
+                <h1>{workout.name}</h1>
+                <p>Type: {workout.workout_type.toUpperCase()}</p>
+                <p>
+                    {`Created on ${
+                    workout.created_at ? new Date(workout.created_at).toLocaleDateString() : "Unknown date"
+                    }`}
+                </p>
+                <p>Description: {workout.description}</p>
+                {workout.workout_author_id === user.id && (
+                    <>
+                    <Link to={`/workouts/${workoutId}/edit`}>Edit</Link>
+                    <button onClick={() => handleDeleteWorkout(workoutId)}>Delete</button>
+                    </>
+                )}
+                <p>
+                    {`Workout Date: ${
+                        workout.workout_date
+                        ? new Date(workout.workout_date).toLocaleDateString()
+                        : "Unknown"
+                    }`}
+                </p>
             </header>
-            
 
             <h2>Exercises</h2>
             {workout.exercises.length ? (

@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useNavigate } from 'react-router'
 import * as workoutService from '../../services/workoutService'
 import * as exerciseService from '../../services/exerciseService'
+import styles from './WorkoutForm.module.css'
 
 const WorkoutForm = ({handleAddWorkout, handleUpdateWorkout}) => {
   // const navigate = useNavigate()
@@ -16,6 +17,7 @@ const WorkoutForm = ({handleAddWorkout, handleUpdateWorkout}) => {
     custom_workout_type: '',
     difficulty: '',
     exercises: [], //list
+    workout_date: new Date().toISOString().slice(0, 10), // slice to get YYYY-MM-DD 
   })
 
   const [exercises, setExercises] = useState([])
@@ -65,6 +67,7 @@ useEffect(() => {
           sets: ex.sets,
           reps: ex.reps,
         })),
+        workout_date: workoutData.workout_date || new Date().toISOString().slice(0, 10),
       });
     };
 
@@ -140,138 +143,156 @@ useEffect(() => {
   }
 
   return (
-    <main>
-      <h1>Customize Your Workout</h1>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Workout Name</label>
-          <input
-            name="name"
-            placeholder="e.g Leg Day"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            name="description"
-            placeholder="e.g Squats & Lunges"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="workout_type">Workout Type</label>
-          <select
-            id="workout_type"
-            name="workout_type"
-            value={formData.workout_type}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select workout type</option>
-            <option value="strength">Strength</option>
-            <option value="hypertrophy">Hypertrophy</option>
-            <option value="cardio">Cardio</option>
-            <option value="hiit">HIIT</option>
-            <option value="circuit">Circuit</option>
-            <option value="cross_training">Cross Training</option>
-            <option value="powerlifting">Powerlifting</option>
-            <option value="olympic_lifting">Olympic Lifting</option>
-            <option value="functional">Functional</option>
-            <option value="bodyweight">Bodyweight</option>
-            <option value="endurance">Endurance</option>
-            <option value="mobility">Mobility</option>
-            <option value="stretching">Stretching</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        {formData.workout_type === 'other' && (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <h1>Customize Your Workout</h1>
+        
+        <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="custom_workout_type">Custom Workout Type</label>
+            <label htmlFor="name">Workout Name</label>
             <input
-              id="custom_workout_type"
-              name="custom_workout_type"
-              value={formData.custom_workout_type}
+              type='text'
+              name="name"
+              placeholder="e.g Leg Day"
+              value={formData.name}
               onChange={handleChange}
               required
             />
           </div>
-        )}
-        <div>
-          <label htmlFor="difficulty">Difficulty</label>
-          <select
-            id="difficulty"
-            name="difficulty"
-            value={formData.difficulty}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select difficulty</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-        </div>
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              placeholder="e.g Squats & Lunges"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
 
-        <hr/>
-
-        <h2>Exercises</h2>
-
-        {formData.exercises.map((exercise, index) => (
-          <div key={index}>
+          <div>
+            <label htmlFor="workout_type">Workout Type</label>
             <select
-              value={exercise.id}
-              onChange={(e) =>
-                handleExerciseChange(index, 'id', e.target.value)
-              }
+              id="workout_type"
+              name="workout_type"
+              value={formData.workout_type}
+              onChange={handleChange}
               required
             >
-              <option value="">Select exercise</option>
-              {exercises.map((exercise) => (
-                <option key={exercise.id} value={exercise.id}>
-                  {exercise.name}
-                </option>
-              ))}
+              <option value="">Select workout type</option>
+              <option value="strength">Strength</option>
+              <option value="hypertrophy">Hypertrophy</option>
+              <option value="cardio">Cardio</option>
+              <option value="hiit">HIIT</option>
+              <option value="circuit">Circuit</option>
+              <option value="cross_training">Cross Training</option>
+              <option value="powerlifting">Powerlifting</option>
+              <option value="olympic_lifting">Olympic Lifting</option>
+              <option value="functional">Functional</option>
+              <option value="bodyweight">Bodyweight</option>
+              <option value="endurance">Endurance</option>
+              <option value="mobility">Mobility</option>
+              <option value="stretching">Stretching</option>
+              <option value="other">Other</option>
             </select>
-
-            <input
-              type="number"
-              placeholder="Sets"
-              value={exercise.sets}
-              onChange={(e) =>
-                handleExerciseChange(index, 'sets', e.target.value)
-              }
-              min="1"
-              required
-            />
-
-            <input
-              type="number"
-              placeholder="Reps"
-              value={exercise.reps}
-              onChange={(e) =>
-                handleExerciseChange(index, 'reps', e.target.value)
-              }
-              min="1"
-              required
-            />
-
-            <button type="button" onClick={() => removeExercise(index)}>❌ Remove Exercise</button>
           </div>
-        ))}
 
-        <button type="button" onClick={addExercise}>➕ Add Exercise</button>
+          {formData.workout_type === 'other' && (
+            <div>
+              <label htmlFor="custom_workout_type">Custom Workout Type</label>
+              <input
+                type='text'
+                id="custom_workout_type"
+                name="custom_workout_type"
+                value={formData.custom_workout_type}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
 
-        <br />
+          <div>
+            <label htmlFor="difficulty">Difficulty</label>
+            <select
+              id="difficulty"
+              name="difficulty"
+              value={formData.difficulty}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select difficulty</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
 
-        <button type="submit">{workoutId ? 'Update Workout' : 'Create Workout'}</button>
-      </form>
-    </main>
+          <div>
+            <label htmlFor="workout_date">Workout Date</label>
+            <input
+              type="date"
+              id="workout_date"
+              name="workout_date"
+              value={formData.workout_date}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <hr/>
+
+          <h2>Exercises</h2>
+
+          {formData.exercises.map((exercise, index) => (
+            <div key={index} className={styles.exerciseRow}>
+              <select
+                value={exercise.id}
+                onChange={(e) =>
+                  handleExerciseChange(index, 'id', e.target.value)
+                }
+                required
+              >
+                <option value="">Select exercise</option>
+                {exercises.map((exercise) => (
+                  <option key={exercise.id} value={exercise.id}>
+                    {exercise.name}
+                </option>
+                ))}
+              </select>
+
+              <input
+                type="number"
+                placeholder="Sets"
+                value={exercise.sets}
+                onChange={(e) =>
+                  handleExerciseChange(index, 'sets', e.target.value)
+                }
+                min="1"
+                required
+              />
+
+              <input
+                type="number"
+                placeholder="Reps"
+                value={exercise.reps}
+                onChange={(e) =>
+                  handleExerciseChange(index, 'reps', e.target.value)
+                }
+                min="1"
+                required
+              />
+
+              <button type="button" className={styles.removeBtn} onClick={() => removeExercise(index)}> Remove Exercise</button>
+            </div>
+          ))}
+
+          <button type="button" onClick={addExercise}> Add Exercise</button>
+
+          <br />
+
+          <button type="submit" className={styles.submitBtn}>{workoutId ? 'Update Workout' : 'Create Workout'}</button>
+        </form>
+      </main>
+    </div>
   )
 }
 

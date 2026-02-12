@@ -10,8 +10,8 @@ import { UserContext } from './contexts/UserContext.jsx'
 import * as workoutService from './services/workoutService.js'
 
 import WorkoutForm from './components/WorkoutForm/WorkoutForm.jsx'
-// import WorkoutList from './components/WorkoutList/WorkoutList.jsx'
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails.jsx'
+import CalendarPage from './components/WorkoutCalendar/CalendarPage.jsx'
 
 const App = () => {
     const { user } = useContext(UserContext)
@@ -60,6 +60,7 @@ const App = () => {
                         <Route path='/workouts/new' element={<WorkoutForm handleAddWorkout={handleAddWorkout}/>}/>
                         <Route path='/workouts/:workoutId' element={<WorkoutDetails handleDeleteWorkout={handleDeleteWorkout}/>}/>
                         <Route path='/workouts/:workoutId/edit'element={<WorkoutForm  handleUpdateWorkout={handleUpdateWorkout} />}/> 
+                        <Route path='/workouts/calendar'element={<CalendarPage/>}/> 
                     </>
                 ) : (
                     <>
