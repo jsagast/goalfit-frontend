@@ -23,6 +23,13 @@
     text-align: center;   
 }
 
+.main h1{ 
+    font-family: 'Freckle Face', cursive;
+    font-size: 60px;
+    margin-bottom: 5px;
+    color: #4c1d95;
+}
+
 h1, h2 {
     margin-bottom: 15px;
     color: #333;
@@ -117,6 +124,7 @@ button.removeBtn:hover {
 }
 
 .submitBtn {
-    margin-top: 20px;
+    margin-top: 5px;
     width: 100%;
+    background: linear-gradient(90deg, #00b09b, #96c93d);
 }

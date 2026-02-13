@@ -88,11 +88,7 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
             </p>
             <p>Description: {workout.description}</p>
             <p>
-                {`Workout Date: ${
-                    workout.workout_date
-                    ? new Date(workout.workout_date).toLocaleDateString()
-                    : "Unknown"
-                }`}
+                {`Workout Date: ${ workout.workout_date}`}
             </p>
 
             <h2>Exercises</h2>
@@ -128,13 +124,13 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
 
             {workout.comments.map((comment) => {
                 const isYou = user?.username === comment.comment_author_username
-                const who = isYou? "You": comment.comment_author_username || "Unknown"
+                const who = "Your"
                 const when = comment.comment_created_at ? new Date(comment.comment_created_at).toLocaleDateString(): "Unknown date"
-
+                console.log(when)
                 return (
                     <article key={comment.comment_id} className={styles.commentArticle}>
                         <header  className={styles.commentHeader}>
-                            <p>{`${who} posted on ${when}`}</p>
+                            <p>{`${who} ${when} session`}</p>
                         </header>
 
                         <p>{comment.comment_text}</p>

@@ -48,7 +48,7 @@ const CommentForm = ({handleAddComment, handleUpdateComment, editingComment, set
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="text-input">Your comment:</label>
+      <label htmlFor="text-input">Session details</label>
       <textarea
         required
         name="text"

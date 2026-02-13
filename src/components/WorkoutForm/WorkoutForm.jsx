@@ -66,7 +66,7 @@ useEffect(() => {
           sets: ex.sets,
           reps: ex.reps,
         })),
-        workout_date: workoutData.workout_date || new Date().toISOString().slice(0, 10),
+        workout_date: workoutData.workout_date || "",
       });
 
     };
@@ -232,12 +232,8 @@ useEffect(() => {
               type="date"
               id="workout_date"
               name="workout_date"
-              value={
-              formData.workout_date
-                ? new Date(formData.workout_date).toISOString().split("T")[0]
-                : ""
-              }
-              // value={formData.workout_date.toISOString().split("T")[0]}
+              value={formData.workout_date || ""}
+
               onChange={handleChange}
               required
             />

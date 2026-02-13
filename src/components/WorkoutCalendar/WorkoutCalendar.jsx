@@ -3,6 +3,8 @@ import { parse, startOfWeek, format, getDay } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router'
+
 
 import styles from './WorkoutCalendar.module.css'
 
@@ -18,6 +20,7 @@ const localizer = dateFnsLocalizer({
 
 const WorkoutCalendar = ({ workouts }) => {
   const [date, setDate] = useState(new Date());
+  const navigate = useNavigate();
 
   const events = workouts.map(w => ({
     title: w.name,
@@ -41,6 +44,10 @@ const WorkoutCalendar = ({ workouts }) => {
     };
   };
 
+  const handleEventClick = (event) => {
+    navigate(`/workouts/${event.id}`);
+  };
+
   return (
     <div className={styles.calendarContainer}>
       <Calendar
@@ -54,6 +61,7 @@ const WorkoutCalendar = ({ workouts }) => {
         date={date}              
         onNavigate={newDate => setDate(newDate)}  
         dayPropGetter={() => ({ className: styles.dayCell })}
+        onSelectEvent={handleEventClick}
       />
     </div>
   );
