@@ -176,9 +176,8 @@ CREATE TABLE comments (
 
 ### Links 🔗
 ---
-- [Backend](https:)
-- [Frontend](https:)
-- [Deployed App](https:)
+- [Backend](https://github.com/jsagast/goalfit-backend)
+- [Frontend](https://github.com/jsagast/goalfit-frontend)
 
 
 :rocket::boom:
