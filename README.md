@@ -178,6 +178,7 @@ CREATE TABLE comments (
 ---
 - [Backend](https://github.com/jsagast/goalfit-backend)
 - [Frontend](https://github.com/jsagast/goalfit-frontend)
+- [GoalFit App](https://fancy-goalfitapp.netlify.app)
 
 
 :rocket::boom:
