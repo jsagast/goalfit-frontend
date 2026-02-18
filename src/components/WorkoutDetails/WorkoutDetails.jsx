@@ -55,7 +55,12 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
             comment_text
         )
 
+        const originalComment = workout.comments.find(
+        (c) => c.comment_id === comment_id
+        )
+
         const safeUpdated = {
+            ...originalComment,
             ...updated,
             comment_id,
             comment_text: updated?.comment_text || comment_text,

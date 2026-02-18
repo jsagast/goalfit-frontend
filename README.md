@@ -27,28 +27,6 @@ GoalFit is a web application that helps you take control of your fitness journey
 | <h3 align="center">Calendar</h3>   | <img src="public/images/calendar.jpg" width="600"> |
 
 
-### ⛰️ Getting started (USER) 
----
-### App Flow
-
-1. **Sign Up / Sign In**  
-   Create an account or log in to get started.
-
-2. **Profile Access**  
-   After logging in, the app uploads 5-day weather data for random locations.
-
-3. **Search for Places**  
-   The search bar allows you to explore weather data for specific locations and add as many locations as you want to a personalized list.
-
-4. **My Profile**  
-   Your profile gives you access to the lists you have created. You can edit or delete any list you own, and you can also create new lists from here.
-
-5. **View List**  
-   When accessing your lists, you can view weather data for the locations you have added, leave comments on the list, and explore individual locations.
-
-6. **View Location**  
-   When accessing a specific location, you can log, edit, or delete activities you have completed at that location.
-
 ### 👨‍💻 Database management PostgreSQl (`goalfit_db`)
 
 The following tables are part of the `goalfit_db` PostgreSQL database. The `workout_exercises` table is populated by combining the `workouts` and `exercises` tables.
