@@ -26,7 +26,6 @@ const WorkoutDetails = ({ handleDeleteWorkout }) => {
             commentFormData,
         )
         setWorkout({ ...workout, comments: [newComment, ...workout.comments] })
-        console.log('commentFormData -->', commentFormData)
     }
 
     const handleDeleteComment = async (commentId) => {
